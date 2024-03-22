@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Celin.Views.LoginPage"
+             xmlns:local="clr-namespace:Celin.Views"
+             x:DataType="local:LoginPage"
+             Title="Login"
+             Shell.FlyoutBehavior="Disabled">
+
+    <Grid HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          MaximumWidthRequest="500"
+          Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackLayout
+            Grid.Row="1"
+            x:Name="form"
+            Spacing="10">
+
+            <Entry x:Name="username"
+                   Placeholder="User Name"
+                   Text="{Binding Username}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumLength="1"/>
+                </Entry.Behaviors>
+            </Entry>
+
+            <Entry x:Name="password"
+                   IsPassword="True"
+                   Placeholder="Password"
+                   Text="{Binding Password}">
+                <Entry.Behaviors>
+                    <toolkit:TextValidationBehavior
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"
+                        Flags="ValidateOnValueChanged"
+                        MinimumLength="1"/>
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+
+        <Button x:Name="login"
+                Grid.Row="2"
+                Margin="40"
+                Text="Login"
+                Clicked="login_Clicked"/>
+
+        <Label Grid.Row="3"
+               StyleClass="Error"
+               HorizontalOptions="CenterAndExpand"
+               Text="{Binding Message}" />
+
+    </Grid>
+
+</ContentPage>

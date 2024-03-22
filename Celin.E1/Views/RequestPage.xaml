@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Celin.Views.RequestPage"
+    xmlns:local="clr-namespace:Celin.Views"
+    x:DataType="local:RequestPage"
+    NavigationPage.HasBackButton="False"
+    BackgroundColor="Transparent"
+    >
+    <Border
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        MaximumHeightRequest="300"
+        MaximumWidthRequest="300"
+        Padding="20"
+        Opacity=".9"
+        BackgroundColor="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"
+        >
+        <Grid
+            Margin="20"
+            >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label
+                HorizontalOptions="Center"
+                FontSize="Subtitle"
+                Text="{Binding Header}"
+                />
+            <ActivityIndicator
+                Grid.Row="1"
+                VerticalOptions="Center"
+                IsRunning="True"
+                />
+            <Button
+                x:Name="cancel"
+                Grid.Row="2"
+                StyleClass="OutlinedButton"
+                Text="Cancel"
+                Clicked="cancel_Clicked"
+                />
+        </Grid>
+    </Border>
+</ContentPage>
