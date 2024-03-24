@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Celin.Views"
+             xmlns:controls="clr-namespace:Celin.Controls"
+             x:Class="Celin.Views.AddressDetailPage"
+             x:DataType="views:AddressDetailPage"
+             Title="Address Detail">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <FlexLayout JustifyContent="SpaceEvenly" Wrap="Wrap">
+            <controls:FormFieldIntEntry IsReadonly="True" Value="{Binding Data.z_AN8_21}"/>
+            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ALPH_28}"/>
+        </FlexLayout>
+
+        <FlexLayout Grid.Row="1" JustifyContent="SpaceEvenly"  Wrap="Wrap">
+            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD1_40}"/>
+            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD2_42}"/>
+            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD3_44}"/>
+        </FlexLayout>
+    </Grid>
+
+</ContentPage>

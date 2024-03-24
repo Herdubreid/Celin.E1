@@ -6,17 +6,8 @@ namespace Celin.Views;
 
 public partial class LoginPage : ContentPage
 {
-    public string? Username { get; set; }
-    string? _password;
-    public string? Password
-    {
-        get => _password;
-        set
-        {
-            _password = value;
-            OnPropertyChanged(nameof(Password));
-        }
-    }
+    public string Username { get; set; }
+    public string? Password { get; set; }
     string? _message;
     public string Message
     {
@@ -74,8 +65,9 @@ public partial class LoginPage : ContentPage
     public LoginPage(Host host)
     {
         _host = host;
-
+        Username = host.AuthRequest.username;
         BindingContext = this;
+
         InitializeComponent();
     }
 }

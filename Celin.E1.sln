@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34707.107
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Celin.E1", "Celin.E1\Celin.E1.csproj", "{41A5298B-F772-49B6-B524-3D41788BDD00}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Celin.AIS", "..\Celin.AIS\Celin.AIS.csproj", "{B2C3C38B-02DC-408C-9F86-2667B6B7DEB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{41A5298B-F772-49B6-B524-3D41788BDD00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41A5298B-F772-49B6-B524-3D41788BDD00}.Release|Any CPU.Build.0 = Release|Any CPU
 		{41A5298B-F772-49B6-B524-3D41788BDD00}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B2C3C38B-02DC-408C-9F86-2667B6B7DEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C3C38B-02DC-408C-9F86-2667B6B7DEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C3C38B-02DC-408C-9F86-2667B6B7DEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C3C38B-02DC-408C-9F86-2667B6B7DEB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

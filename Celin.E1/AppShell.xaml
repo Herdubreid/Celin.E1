@@ -7,8 +7,7 @@
     xmlns:services="clr-namespace:Celin.Services"
     xmlns:local="clr-namespace:Celin"
     x:DataType="local:AppShell"
-    Shell.FlyoutBehavior="Disabled"
-    Title="Celin.E1">
+    FlyoutBehavior="Flyout">
 
     <Shell.ToolbarItems>
         <ToolbarItem
@@ -24,8 +23,11 @@
     </Shell.ToolbarItems>
 
     <ShellContent
-        Title="Main"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="main" />
+        Title="Address Book"
+        ContentTemplate="{DataTemplate views:AddressBookPage}"/>
+    
+    <ShellContent
+        Title="About"
+        ContentTemplate="{DataTemplate views:AboutPage}"/>
 
 </Shell>

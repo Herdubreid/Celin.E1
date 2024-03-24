@@ -2,11 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Celin.Views.LoginPage"
              xmlns:local="clr-namespace:Celin.Views"
-             x:DataType="local:LoginPage"
-             Title="Login"
-             Shell.FlyoutBehavior="Disabled">
+             x:Class="Celin.Views.LoginPage"
+             x:DataType="local:LoginPage">
 
     <Grid HorizontalOptions="FillAndExpand"
           VerticalOptions="FillAndExpand"
@@ -19,6 +17,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <Label Text="Login"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontSize="Medium"/>
 
         <StackLayout
             Grid.Row="1"

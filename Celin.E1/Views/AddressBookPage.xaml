@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vms="clr-namespace:Celin.ViewModels"
+             xmlns:w01012b="clr-namespace:Celin.Models.W01012B"
+             x:Class="Celin.Views.AddressBookPage"
+             x:DataType="vms:AddressBookViewModel">
+
+    <Grid Margin="10,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <SearchBar Placeholder="Type Name to Search..."
+                   Grid.Row="0">
+            <SearchBar.Behaviors>
+                <toolkit:UserStoppedTypingBehavior
+                    Command="{Binding CustomerSearchCommand}"
+                    StoppedTypingTimeThreshold="1000"
+                    MinimumLengthThreshold="1"/>
+            </SearchBar.Behaviors>
+        </SearchBar>
+
+        <Label Grid.Row="1"
+               FontSize="Caption"
+               FontAttributes="Italic"
+               Padding="5"
+               HorizontalTextAlignment="Center"
+               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+               IsVisible="{Binding SearchMessage, Converter={StaticResource IsStringNotNullOrEmptyConverter}}"
+               Text="{Binding SearchMessage}"/>
+
+        <ScrollView Grid.Row="2">
+
+            <ListView x:Name="list"
+                      ItemsSource="{Binding Rows}"
+                      SelectionMode="Single">
+                <ListView.Behaviors>
+                    <toolkit:EventToCommandBehavior
+                        EventName="ItemTapped"
+                        Command="{Binding SelectCommand}"
+                        EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="w01012b:Row">
+                        <ViewCell>
+                            <HorizontalStackLayout
+                                Padding="0,10,0,0"
+                                Spacing="10">
+                                <Label Text="{Binding z_AN8_19}"
+                                       WidthRequest="{Binding Source={x:Static vms:ColumnWidth.AN8}}"
+                                       HorizontalTextAlignment="End"/>
+                                <Label Text="{Binding z_ALPH_20}"
+                                       WidthRequest="{Binding Source={x:Static vms:ColumnWidth.ALPH}}"/>
+                                <Label Text="{Binding z_AT1_50}"
+                                       WidthRequest="30"
+                                       HorizontalTextAlignment="Center"/>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

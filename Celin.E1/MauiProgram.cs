@@ -1,4 +1,5 @@
 ﻿using Celin.Services;
+using Celin.ViewModels;
 using Celin.Views;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
@@ -46,12 +47,16 @@ public static class MauiProgram
 
         /* Services */
         builder.Services
-            .AddSingleton<Host>()
-            .AddScoped<NavigationService>();
+            .AddSingleton<Host>();
 
-        /* Pages
+        /* ViewModels */
         builder.Services
-            .AddScoped<LoginPage>();*/
+            .AddScoped<AddressBookViewModel>();
+
+        /* Pages */
+        builder.Services
+            .AddScoped<AboutPage>()
+            .AddScoped<AddressBookPage>();
 
         return builder.Build();
     }
