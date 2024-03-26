@@ -49,7 +49,7 @@ public partial class LoginPage : ContentPage
             }
             catch (AisException ex)
             {
-                Message = ex.ErrorResponse.message;
+                Message = ex?.ErrorResponse?.message ?? ex?.Message ?? "Unknown Error";
             }
             finally
             {

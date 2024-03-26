@@ -32,6 +32,7 @@ public class Request : AIS.FormRequest
 {
     public Request(AIS.Query q) : this()
     {
+        maxPageSize = "25";
         query = q;
     }
     public Request()

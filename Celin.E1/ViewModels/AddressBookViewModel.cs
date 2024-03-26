@@ -15,7 +15,7 @@ public static class ColumnWidth
 public partial class AddressBookViewModel : ObservableObject
 {
     [ObservableProperty]
-    List<Models.W01012B.Row> _rows = [];
+    IList<Models.W01012B.Row> _rows = [];
     [ObservableProperty]
     string? _searchMessage;
     [RelayCommand]
@@ -45,39 +45,37 @@ public partial class AddressBookViewModel : ObservableObject
             await Shell.Current.Navigation.PopModalAsync();
         }
     }
-    [RelayCommand]
-    async Task CustomerSearchAsync(string txt)
+    [RelayCommand(AllowConcurrentExecutions = true)]
+    async Task CustomerSearchAsync(string txt, CancellationToken token)
     {
-        _cancel.Cancel();
-        _cancel = new CancellationTokenSource();
+        SearchMessage = $"Searching...";
         try
         {
-            SearchMessage = "Searching...";
-
             var tokens = txt.Split(' ');
             var q = int.TryParse(txt, out int an8)
             ? Make.Query(Make.List(Make.Equal("1[19]", an8.ToString())))
             : Make.Query(tokens
                 .Select(t => Make.Like("1[20]", t)));
             var rs = await _host.RequestAsync<Form>(
-                new Models.W01012B.Request(q));
-            Rows = rs.W01012B.data.gridData.rowset.ToList();
+                new Models.W01012B.Request(q), token);
 
-            if (Rows.Count > 0)
+            if (rs.W01012B.data.gridData.summary.records > 0)
             {
                 SearchMessage = null;
                 const int w = 9;
-                ColumnWidth.AN8 = Rows.Max(r => r.z_AN8_19.ToString().Length) * w;
-                ColumnWidth.ALPH = Rows.Max(r => r.z_ALPH_20.Length) * w;
+                ColumnWidth.AN8 = rs.W01012B.data.gridData.rowset
+                    .Max(r => r.z_AN8_19.ToString().Length) * w;
+                ColumnWidth.ALPH = rs.W01012B.data.gridData.rowset
+                    .Max(r => r.z_ALPH_20.Length) * w;
+               Rows = rs.W01012B.data.gridData.rowset.ToList();
             }
             else
             {
                 SearchMessage = "No Matching Result";
             }
         }
-        catch (OperationCanceledException) { }
+        catch (OperationCanceledException) { Debug.WriteLine("Cancelled!"); }
     }
-    CancellationTokenSource _cancel = new CancellationTokenSource();
     readonly Host _host;
     public AddressBookViewModel(Host host)
     {
