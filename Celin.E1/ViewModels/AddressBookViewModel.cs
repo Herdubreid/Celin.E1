@@ -1,4 +1,5 @@
-﻿using Celin.Models;
+﻿using Celin.AIS;
+using Celin.Models;
 using Celin.Services;
 using Celin.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,7 +13,7 @@ public static class ColumnWidth
     public static int AN8 { get; set; }
     public static int ALPH { get; set; }
 }
-public partial class AddressBookViewModel : ObservableObject
+public partial class AddressBookViewModel : BaseViewModel
 {
     [ObservableProperty]
     IList<Models.W01012B.Row> _rows = [];
@@ -38,6 +39,10 @@ public partial class AddressBookViewModel : ObservableObject
                     }, cancel));
 
             await Shell.Current.Navigation.PushAsync(new AddressDetailPage(rs.W01012A.data));
+        }
+        catch (AisException ex)
+        {
+            HandleException(ex);
         }
         catch (Exception ex)
         {
@@ -74,15 +79,17 @@ public partial class AddressBookViewModel : ObservableObject
                 SearchMessage = "No Matching Result";
             }
         }
-        catch (OperationCanceledException) { Debug.WriteLine("Cancelled!"); }
+        catch (AisException ex)
+        {
+            HandleException(ex);
+        }
+        catch (OperationCanceledException) { }
         catch (Exception ex)
         {
             SearchMessage = ex.Message;
         }
     }
-    readonly Host _host;
-    public AddressBookViewModel(Host host)
+    public AddressBookViewModel(Host host) : base(host)
     {
-        _host = host;
     }
 }
