@@ -26,23 +26,22 @@ public partial class AddressBookViewModel : ObservableObject
         await Shell.Current.Navigation.PushModalAsync(dlg);
         try
         {
-            var rs = await _host
-            .RequestAsync<Form>(new Models.W01012B
-                    .Request(Make
-                        .Query(Make.List(Make
-                            .Equal("1[19]", item.z_AN8_19.ToString()))))
-            {
-                formActions = Make.List(
-                            Make.Select(0), Make.Do(Models.W01012B.Actions.Select))
-            });
+            Form rs = await dlg.ExecuteAsync((cancel)
+                => _host
+                    .RequestAsync<Form>(new Models.W01012B
+                        .Request(Make
+                            .Query(Make.List(Make
+                                .Equal("1[19]", item.z_AN8_19.ToString()))))
+                    {
+                        formActions = Make.List(
+                                Make.Select(0), Make.Do(Models.W01012B.Actions.Select))
+                    }, cancel));
 
-            await Shell.Current.Navigation.PopModalAsync();
             await Shell.Current.Navigation.PushAsync(new AddressDetailPage(rs.W01012A.data));
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            await Shell.Current.Navigation.PopModalAsync();
         }
     }
     [RelayCommand(AllowConcurrentExecutions = true)]
@@ -67,7 +66,8 @@ public partial class AddressBookViewModel : ObservableObject
                     .Max(r => r.z_AN8_19.ToString().Length) * w;
                 ColumnWidth.ALPH = rs.W01012B.data.gridData.rowset
                     .Max(r => r.z_ALPH_20.Length) * w;
-               Rows = rs.W01012B.data.gridData.rowset.ToList();
+                Rows = rs.W01012B.data.gridData.rowset.ToList();
+                SearchMessage = string.Empty;
             }
             else
             {
@@ -75,6 +75,10 @@ public partial class AddressBookViewModel : ObservableObject
             }
         }
         catch (OperationCanceledException) { Debug.WriteLine("Cancelled!"); }
+        catch (Exception ex)
+        {
+            SearchMessage = ex.Message;
+        }
     }
     readonly Host _host;
     public AddressBookViewModel(Host host)

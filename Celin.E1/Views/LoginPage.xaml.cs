@@ -1,6 +1,7 @@
 using Celin.AIS;
 using Celin.Services;
 using CommunityToolkit.Maui.Behaviors;
+using System.Runtime.CompilerServices;
 
 namespace Celin.Views;
 
@@ -9,7 +10,7 @@ public partial class LoginPage : ContentPage
     public string Username { get; set; }
     public string? Password { get; set; }
     string? _message;
-    public string Message
+    public string? Message
     {
         get => _message ?? string.Empty;
         set
@@ -43,17 +44,21 @@ public partial class LoginPage : ContentPage
             await Navigation.PushModalAsync(dlg);
             try
             {
-                await dlg.ExecuteAsync(_host.AuthenticateAsync);
+                await dlg.ExecuteAsync(async (cancel) =>
+                {
+                    await _host.AuthenticateAsync(cancel);
+                    return true;
+                });
 
-                await Navigation.PopModalAsync();
+                await Navigation.PopModalAsync(false);
             }
             catch (AisException ex)
             {
-                Message = ex?.ErrorResponse?.message ?? ex?.Message ?? "Unknown Error";
+                Message = ex.ErrorResponse?.message ?? ex.Message;
             }
-            finally
+            catch (Exception ex)
             {
-                await Navigation.PopModalAsync();
+                Message = ex.Message;
             }
         }
         else
