@@ -15,6 +15,7 @@ public static class ColumnWidth
 }
 public partial class AddressBookViewModel : BaseViewModel
 {
+    public string? Query { get; set; }
     [ObservableProperty]
     IList<Models.W01012B.Row> _rows = [];
     [ObservableProperty]

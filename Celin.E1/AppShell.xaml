@@ -9,25 +9,34 @@
     x:DataType="local:AppShell"
     FlyoutBehavior="Flyout">
 
-    <Shell.ToolbarItems>
-        <ToolbarItem
-            Text="Logout"
-            Command="{Binding LogoutCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource
-                    FontFamily="MaterialOutlined"
-                    Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
-                    Glyph="{StaticResource IconLogout}"/>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </Shell.ToolbarItems>
+    <Shell.Resources>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource BackgroundDark}}"/>
+        </Style>
+    </Shell.Resources>
 
-    <ShellContent
-        Title="Address Book"
-        ContentTemplate="{DataTemplate views:AddressBookPage}"/>
-    
-    <ShellContent
-        Title="About"
-        ContentTemplate="{DataTemplate views:AboutPage}"/>
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout>
+            <BoxView HeightRequest="1"/>
+            <Button Text="Logout"
+                    Command="{Binding LogoutCommand}">
+                <Button.ImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialOutlined"
+                        Color="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDark}}"
+                        Glyph="{StaticResource IconLogout}"/>
+                </Button.ImageSource>
+            </Button>
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
+
+    <FlyoutItem Title="Address Book">
+        <ShellContent ContentTemplate="{DataTemplate views:AddressBookPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="About">
+        <ShellContent ContentTemplate="{DataTemplate views:AboutPage}"/>
+    </FlyoutItem>
 
 </Shell>

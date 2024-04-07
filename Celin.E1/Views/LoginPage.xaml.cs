@@ -1,7 +1,6 @@
 using Celin.AIS;
 using Celin.Services;
 using CommunityToolkit.Maui.Behaviors;
-using System.Runtime.CompilerServices;
 
 namespace Celin.Views;
 

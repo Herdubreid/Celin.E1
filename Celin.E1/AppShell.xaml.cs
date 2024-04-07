@@ -13,20 +13,21 @@ public partial class AppShell : Shell
 
         if (Handler is not null)
         {
-            await Navigation.PushModalAsync(new LoginPage(_host));
+            //await Navigation.PushModalAsync(new LoginPage(_host));
         }
     }
     readonly Host _host;
     public AppShell(Host host)
     {
         _host = host;
-        BindingContext = this;
 
         LogoutCommand = new Command(() =>
         {
             _ = host.LogoutAsync();
             Navigation.PushModalAsync(new LoginPage(host));
         });
+
+        BindingContext = this;
 
         InitializeComponent();
     }

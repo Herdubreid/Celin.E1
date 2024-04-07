@@ -10,17 +10,17 @@ public class FormFieldEntry<T> : ContentView
             typeof(FormFieldEntry<T>),
             null,
             BindingMode.TwoWay);
-    public static readonly BindableProperty IsReadOnlyProperty =
+    public static readonly BindableProperty CanEditProperty =
         BindableProperty.Create(
-            nameof(IsReadonly),
+            nameof(CanEdit),
             typeof(bool),
             typeof(FormFieldEntry<T>),
             false);
 
-    public bool IsReadonly
+    public bool CanEdit
     {
-        get => (bool)GetValue(IsReadOnlyProperty);
-        set => SetValue(IsReadOnlyProperty, !value);
+        get => (bool)GetValue(CanEditProperty);
+        set => SetValue(CanEditProperty, value);
     }
     public AIS.FormField<T> Value
     {
@@ -35,7 +35,7 @@ public class FormFieldEntry<T> : ContentView
         _label.SetBinding(Label.TextProperty, new Binding($"{nameof(Value)}.{nameof(Value.title)}", source: this));
         _entry = new Entry();
         _entry.SetBinding(Entry.TextProperty, new Binding($"{nameof(Value)}.{nameof(Value.value)}", source: this));
-        _entry.SetBinding(IsEnabledProperty, new Binding(nameof(IsReadonly), source: this));
+        _entry.SetBinding(IsEnabledProperty, new Binding(nameof(CanEdit), source: this));
         Content = new VerticalStackLayout
         {
             Margin = 10,

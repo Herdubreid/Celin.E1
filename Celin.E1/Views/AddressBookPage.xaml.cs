@@ -1,11 +1,20 @@
-﻿namespace Celin.Views;
+﻿using System.Diagnostics;
+
+namespace Celin.Views;
 
 public partial class AddressBookPage : ContentPage
 {
-    public AddressBookPage(ViewModels.AddressBookViewModel search)
+    public AddressBookPage(ViewModels.AddressBookViewModel vm)
     {
-        BindingContext = search;
+        BindingContext = vm;
 
         InitializeComponent();
+
+        searchHandler.PropertyChanged += (object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+            =>
+        {
+            Debug.WriteLine($"{e.PropertyName} = {vm.Query}");
+        };
     }
+
 }

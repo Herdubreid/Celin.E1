@@ -7,6 +7,19 @@
              x:DataType="views:AddressDetailPage"
              Title="Address Detail">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Ok"
+            Command="{Binding EditCommand}">
+            <ToolbarItem.IconImageSource>
+                    <FontImageSource
+                        FontFamily="MaterialOutlined"
+                        Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                        Glyph="{StaticResource IconCheck}"/>
+                </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <Grid Margin="10" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,14 +28,19 @@
         </Grid.RowDefinitions>
 
         <FlexLayout JustifyContent="Start" Wrap="Wrap">
-            <controls:FormFieldIntEntry IsReadonly="True" Value="{Binding Data.z_AN8_21}"/>
-            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ALPH_28}"/>
+            <controls:FormFieldIntEntry Value="{Binding Data.z_AN8_21}"/>
+            <controls:FormFieldStringEntry
+                CanEdit="{Binding EditMode}"
+                Value="{Binding Data.z_ALPH_28}"/>
         </FlexLayout>
 
         <FlexLayout Grid.Row="1" JustifyContent="Start"  Wrap="Wrap">
-            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD1_40}"/>
-            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD2_42}"/>
-            <controls:FormFieldStringEntry IsReadonly="True" Value="{Binding Data.z_ADD3_44}"/>
+            <controls:FormFieldStringEntry
+                Value="{Binding Data.z_ADD1_40}"/>
+            <controls:FormFieldStringEntry
+                Value="{Binding Data.z_ADD2_42}"/>
+            <controls:FormFieldStringEntry
+                Value="{Binding Data.z_ADD3_44}"/>
         </FlexLayout>
     </Grid>
 
